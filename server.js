@@ -72,13 +72,13 @@ app.post('/api/contact', (req, res) => {
     });
 });
 
-// --- Serve static files for Production ---
 if (process.env.NODE_ENV === 'production') {
-    // NEW PATH, LOOKS INSIDE THE SERVER FOLDER
+    // Serve static files from the dist folder
     app.use(express.static(path.join(__dirname, 'dist')));
 
+    // Handle SPA routing - return index.html for all unknown routes
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+        res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     });
 }
 
